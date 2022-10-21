@@ -13,7 +13,25 @@ import org.springframework.web.context.request.WebRequest;
 public class ControllerExceptionHandler {
     @ExceptionHandler(MissingRequestHeaderException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
-    public ErrorMessage commentNotFoundException(MissingRequestHeaderException ex, WebRequest request) {
+    public ErrorMessage missingRequestHeaderException(MissingRequestHeaderException ex, WebRequest request) {
         return new ErrorMessage( "Authorization token is empty",request.getDescription(false));
+    }
+
+    @ExceptionHandler(EmptyTokenException.class)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+    public ErrorMessage emptyTokenException(EmptyTokenException ex, WebRequest request) {
+        return new ErrorMessage( "Authorization token is empty",request.getDescription(false));
+    }
+
+    @ExceptionHandler({MessageNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage messageNotFoundException(MessageNotFoundException ex, WebRequest request) {
+        return new ErrorMessage( ex.getMessage(), request.getDescription(false));
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage fileNotFoundException(FileNotFoundException ex, WebRequest request) {
+        return new ErrorMessage(ex.getMessage(), request.getDescription(false));
     }
 }

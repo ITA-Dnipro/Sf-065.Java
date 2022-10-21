@@ -5,12 +5,18 @@ import com.ssjavaacademy.www.messengerattachments.repositories.MessageRepository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class MessageService {
-    @Autowired
     MessageRepository messageRepository;
+
+    @Autowired
+    public MessageService(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
 
     public Message updateMessage(long id, Message message) {
         Message oldMess = messageRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Message not found"));
@@ -29,4 +35,15 @@ public class MessageService {
         return oldMess;
     }
 
+    public List<Message> findAll() {
+        return messageRepository.findAll();
+    }
+
+    public Optional<Message> findById(long id) {
+      return messageRepository.findById(id);
+    }
+
+    public void delete(Message body) {
+        messageRepository.delete(body);
+    }
 }
