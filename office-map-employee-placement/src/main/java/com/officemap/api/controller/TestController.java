@@ -21,8 +21,13 @@ public class TestController {
     }
 
     @GetMapping
-    public List<Test> getTests(@RequestHeader("Postman-Token") String authorizationToken) {
+    public List<Test> getTests(@RequestHeader("Authorization") String authorizationToken) {
         authorizationTokenOperator.getTokenValue(authorizationToken);
+        return testRepository.findAll().stream().toList();
+    }
+
+    @GetMapping("/basic")
+    public List<Test> getTestsNoTokens() {
         return testRepository.findAll().stream().toList();
     }
 
@@ -33,7 +38,7 @@ public class TestController {
     }
 
     @PostMapping
-    public Test addTest(@RequestHeader("Postman-Token") String authorizationToken,
+    public Test addTest(@RequestHeader("Authorization") String authorizationToken,
                         @RequestBody Test test) {
         authorizationTokenOperator.getTokenValue(authorizationToken);
         testRepository.save(test);
@@ -41,7 +46,7 @@ public class TestController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteTest(@RequestHeader("Postman-Token") String authorizationToken,
+    public boolean deleteTest(@RequestHeader("Authorization") String authorizationToken,
                               @PathVariable("id") Long id) {
         authorizationTokenOperator.getTokenValue(authorizationToken);
         testRepository.deleteById(id);
