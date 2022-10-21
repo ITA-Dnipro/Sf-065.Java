@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Sf-065.Java.iml" filepath="$PROJECT_DIR$/.idea/Sf-065.Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/employee-management-auth/employee-management-auth.iml" filepath="$PROJECT_DIR$/employee-management-auth/employee-management-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/office-map-employee-placement/office-map.iml" filepath="$PROJECT_DIR$/office-map-employee-placement/office-map.iml" />
+    </modules>
+  </component>
+</project>
