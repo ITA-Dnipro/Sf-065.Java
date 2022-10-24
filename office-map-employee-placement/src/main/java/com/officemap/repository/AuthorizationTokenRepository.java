@@ -1,9 +1,9 @@
 package com.officemap.repository;
 
-import com.officemap.authorization.Token;
+import com.officemap.authorization.AuthorizationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TokenRepository extends JpaRepository<Token, Long> {
+public interface AuthorizationTokenRepository extends JpaRepository<AuthorizationToken, Long> {
 }
