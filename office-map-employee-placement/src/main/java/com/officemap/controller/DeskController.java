@@ -28,7 +28,7 @@ public class DeskController {
 
     @PostMapping
     public Desk addNewDesk(@RequestHeader("Authorization") String authorizationToken,
-                           Desk deskToAdd) {
+                           @RequestBody Desk deskToAdd) {
         authorizationTokenOperator.getToken(authorizationToken);
         return deskService.createNewDesk(deskToAdd);
     }
