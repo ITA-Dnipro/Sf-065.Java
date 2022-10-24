@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "tokens")
-public class Token {
+public class AuthorizationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long tokenId;
     private String tokenValue;
 
-    public Token() {
+    public AuthorizationToken() {
     }
 
     public long getTokenId() {
