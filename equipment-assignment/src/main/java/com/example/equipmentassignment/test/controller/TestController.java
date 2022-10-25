@@ -9,8 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class TestController {
 
     @GetMapping("getuser")
-    public ResponseEntity<String> getUser(@RequestHeader (name="Authorization") String token){
-        String user =  getUserfrommAuthApi(token);
+    public ResponseEntity<UserDTO> getUser(@RequestHeader (name="Authorization") String token){
+        UserDTO user =  getUserfrommAuthApi(token);
 
       return ResponseEntity.ok(user);
     }
@@ -19,12 +19,12 @@ public class TestController {
             .baseUrl("http://localhost:8091")
             .build();
 
-    public String getUserfrommAuthApi(String token) {
+    public UserDTO getUserfrommAuthApi(String token) {
         return webClient.get()
                 .uri("api/v1/secured/authentication")
                 .header("Authorization", token)
                 .retrieve()
-                .bodyToMono(String.class)
+                .bodyToMono(UserDTO.class)
                 .block();
     }
 
