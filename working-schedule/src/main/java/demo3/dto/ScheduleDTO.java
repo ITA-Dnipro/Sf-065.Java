@@ -1,4 +1,4 @@
-package com.example.demo3.dto;
+package demo3.dto;
 
 public class ScheduleDTO {
     private Integer numberOfHours;
