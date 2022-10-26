@@ -1,4 +1,4 @@
-package com.example.demo3.dto;
+package demo3.dto;
 
 import com.example.demo3.enums.ProjectType;
 

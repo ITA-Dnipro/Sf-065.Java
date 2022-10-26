@@ -1,8 +1,10 @@
-package com.example.demo3.service;
+package demo3.service;
+
 import com.example.demo3.entity.Schedule;
 import com.example.demo3.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 
@@ -18,7 +20,7 @@ public class ScheduleService {
     }
 
     public List<Schedule> getAllSchedules() {
-        return  scheduleRepository.findAll();
+        return scheduleRepository.findAll();
 
     }
 
@@ -35,9 +37,9 @@ public class ScheduleService {
     public Schedule updateSchedule(Integer id, Schedule scheduleRequest) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow();
         schedule.setNumberOfHours(scheduleRequest.getNumberOfHours());
-//        schedule.setProjectId(scheduleRequest.getProjectId());
-        Schedule updatedSchedule = scheduleRepository.save(schedule);
-        return updatedSchedule;
+        schedule.setProjectId(scheduleRequest.getProjectId());
+        scheduleRepository.save(schedule);
+        return schedule;
     }
 
     public void deleteSchedule(Integer id) {

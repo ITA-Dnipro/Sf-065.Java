@@ -1,4 +1,4 @@
-package com.example.demo3.entity;
+package demo3.entity;
 
 import com.sun.istack.NotNull;
 
@@ -29,19 +29,18 @@ public class Schedule {
     }
 
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
     @NotNull
     private Integer numberOfHours;
 
+    private Integer projectId;
 
+    public Integer getProjectId() {
+        return projectId;
+    }
 
+    public void setProjectId(Integer projectId) {
+        this.projectId = projectId;
+    }
 
     @ManyToOne
     @JoinColumn(name = "projectId", referencedColumnName = "id", updatable = false, insertable = false)

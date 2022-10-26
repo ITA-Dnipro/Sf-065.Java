@@ -1,4 +1,4 @@
-package com.example.demo3.enums;
+package demo3.enums;
 
 public enum ProjectType {
 
