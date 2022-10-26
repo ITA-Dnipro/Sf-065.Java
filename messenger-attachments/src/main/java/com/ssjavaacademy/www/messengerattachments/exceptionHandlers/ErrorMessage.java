@@ -1,6 +1,7 @@
 package com.ssjavaacademy.www.messengerattachments.exceptionHandlers;
 
 import java.util.Date;
+
 public class ErrorMessage {
     private final Date timestamp;
     private final String message;

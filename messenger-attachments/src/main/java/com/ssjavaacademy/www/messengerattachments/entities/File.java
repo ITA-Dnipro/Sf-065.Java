@@ -1,6 +1,10 @@
 package com.ssjavaacademy.www.messengerattachments.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.Arrays;
+
 @Entity
 @Table(name = "files")
 public class File {
@@ -9,33 +13,36 @@ public class File {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long fileId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "message_id", nullable = false)
+    @JoinColumn(name = "message_id", nullable = true)
     private Message messageId;
 
-    @Column(name = "file_name", nullable= true)
-    private String bookPicture;
+    @Column(name = "file_name", nullable = true)
+    private String fileName;
 
-    @Column(name = "file_size", nullable= true)
+    @Column(name = "file_size", nullable = true)
     private long fileSize;
 
-    @Column(name = "file_content", nullable= false)
+    @Column(name = "file_content", nullable = false)
     private byte[] fileContent;
 
     public File(Long fileId, Message messageId, String bookPicture, long fileSize, byte[] fileContent) {
         this.fileId = fileId;
         this.messageId = messageId;
-        this.bookPicture = bookPicture;
+        this.fileName = bookPicture;
         this.fileSize = fileSize;
         this.fileContent = fileContent;
     }
+
     public File() {
         this.fileId = null;
         this.messageId = null;
-        this.bookPicture = null;
+        this.fileName = null;
         this.fileSize = 0;
         this.fileContent = null;
     }
+
     public Long getFileId() {
         return fileId;
     }
@@ -52,12 +59,12 @@ public class File {
         this.messageId = messageId;
     }
 
-    public String getBookPicture() {
-        return bookPicture;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setBookPicture(String bookPicture) {
-        this.bookPicture = bookPicture;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public long getFileSize() {
@@ -74,5 +81,15 @@ public class File {
 
     public void setFileContent(byte[] fileContent) {
         this.fileContent = fileContent;
+    }
+
+    @Override
+    public String toString() {
+        return "File{" +
+                "fileId=" + fileId +
+                ", fileName='" + fileName + '\'' +
+                ", fileSize=" + fileSize +
+                ", fileContent=" + Arrays.toString(fileContent) +
+                '}';
     }
 }

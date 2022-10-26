@@ -1,4 +1,5 @@
 package com.ssjavaacademy.www.messengerattachments.entities;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -40,7 +41,6 @@ public class Message {
     private String toUsers;
 
     @Column(name = "is_read", nullable = false)
-    @JsonProperty("isRead")
     private Boolean isRead;
 
     @OneToMany(targetEntity = File.class, mappedBy = "messageId", cascade = CascadeType.ALL)
@@ -131,5 +131,19 @@ public class Message {
         this.toUsers = null;
         this.isRead = false;
         this.files = null;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageId=" + messageId +
+                ", subject='" + subject + '\'' +
+                ", text='" + text + '\'' +
+                ", createdAt=" + createdAt +
+                ", fromUser='" + fromUser + '\'' +
+                ", toUsers='" + toUsers + '\'' +
+                ", isRead=" + isRead +
+                ", files=" + files +
+                '}';
     }
 }

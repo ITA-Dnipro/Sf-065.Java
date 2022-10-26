@@ -2,7 +2,7 @@ package com.ssjavaacademy.www.messengerattachments.exceptionHandlers;
 
 import java.util.Objects;
 
-public class EmptyTokenException extends Exception{
+public class EmptyTokenException extends Exception {
     public EmptyTokenException(String message) {
         super(message);
     }
