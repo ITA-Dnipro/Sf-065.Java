@@ -9,10 +9,8 @@ import static com.officemap.common.DeskStatusMessages.AVAILABLE;
 public class Desk {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long deskId;
 
-    @Column(name = "deskName")
     private String deskName;
     @ManyToOne
     @JoinColumn(name = "room_id")
