@@ -24,17 +24,14 @@ public class DeskController {
         this.userDtoRequester = userDtoRequester;
     }
 
-    /* Should get user ID, and save it in token field in DB table "tokens" */
     @GetMapping
-    public Object getAllDesks(@RequestHeader("Authorization") String authorizationToken) {
-        UserDto userDto;
-        try {
-            userDto = userDtoRequester.requestUserDto(authorizationToken);
-            authorizationTokenOperator.getToken(String.valueOf(userDto.getId()));
-            return deskService.getAllDesksToList();
-        } catch (Error er) {
-            return "error 401..."; //ToDo
-        }
+    public List<Desk> getAllDesks(@RequestHeader("Authorization") String authorizationToken) {
+        return deskService.getAllDesksToList();
+    }
+
+    @PostMapping("/verifytoken")
+    public String verifyToken(@RequestHeader("Authorization") String authorizationToken) {
+        return userDtoRequester.verifyTokenValidity(authorizationToken);
     }
 
     @PostMapping

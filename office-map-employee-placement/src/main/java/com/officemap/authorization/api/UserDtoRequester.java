@@ -10,10 +10,18 @@ public class UserDtoRequester {
             .build();
 
     public UserDto requestUserDto(String token) {
-        return authorizationWebClient.get().uri("api/ve/secured/authentication")
+        return authorizationWebClient.get().uri("api/v1/secured/authentication")
                 .header("Authorization", token)
                 .retrieve()
                 .bodyToMono(UserDto.class)
+                .block();
+    }
+
+    public String verifyTokenValidity(String token) {
+        return authorizationWebClient.post().uri("api/v1/secured/tokenValidator")
+                .header("Authorization", token)
+                .retrieve()
+                .bodyToMono(String.class)
                 .block();
     }
 }
