@@ -1,6 +1,7 @@
 package demo3.dto;
 
-import com.example.demo3.enums.ProjectType;
+
+import demo3.enums.ProjectType;
 
 import java.util.Date;
 
@@ -9,6 +10,16 @@ public class ProjectDTO {
     private Date endDate;
     private ProjectType status;
     private String name;
+
+//    private Integer userId;
+
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
     public Date getStartDate() {
         return startDate;

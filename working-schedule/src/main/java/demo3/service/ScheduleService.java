@@ -1,7 +1,8 @@
-package demo3.service;
+package demo3.controller.service;
 
-import com.example.demo3.entity.Schedule;
-import com.example.demo3.repository.ScheduleRepository;
+
+import demo3.entity.Schedule;
+import demo3.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

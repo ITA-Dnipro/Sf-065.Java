@@ -1,8 +1,9 @@
 package demo3.entity;
 
 
-import com.example.demo3.enums.ProjectType;
+
 import com.sun.istack.NotNull;
+import demo3.enums.ProjectType;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;

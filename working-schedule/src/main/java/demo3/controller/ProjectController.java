@@ -1,9 +1,9 @@
 package demo3.controller;
 
-import com.example.demo3.dto.ProjectDTO;
-import com.example.demo3.entity.Project;
-import com.example.demo3.repository.ProjectRepository;
-import com.example.demo3.service.ProjectService;
+import demo3.controller.service.ProjectService;
+import demo3.dto.ProjectDTO;
+import demo3.entity.Project;
+import demo3.repository.ProjectRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,9 +48,6 @@ public class ProjectController {
 
     @PutMapping("/{projectId}")
     public ResponseEntity<Project> updateProject(@PathVariable("projectId") Integer id, @RequestBody Project project) {
-//            Schedule scheduleRequest = mapper.map(scheduleDTO, Schedule.class);
-//            Schedule schedule = scheduleService.updateSchedule(scheduleId, scheduleRequest);
-//            ScheduleDTO scheduleResponse = mapper.map(scheduleRequest, ScheduleDTO.class);
         if (projectRepository.findById(id).isPresent()) {
             projectService.updateProject(id, project);
             return ResponseEntity.status(HttpStatus.OK).body(project);
@@ -61,9 +58,6 @@ public class ProjectController {
 
     @PostMapping()
     public ResponseEntity<ProjectDTO> saveProject(@RequestBody Project project) {
-//            Schedule scheduleRequest = mapper.map(scheduleDTO, Schedule.class);
-//            Schedule schedule = scheduleService.saveSchedule(scheduleRequest);
-//            ScheduleDTO scheduleResponse = mapper.map(schedule, ScheduleDTO.class);
         ProjectDTO dto = new ProjectDTO();
         dto.setEndDate(project.getEndDate());
         dto.setStartDate(project.getStartDate());
