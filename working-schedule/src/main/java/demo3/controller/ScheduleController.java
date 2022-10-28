@@ -1,15 +1,14 @@
 package demo3.controller;
 
-import com.example.demo3.dto.ScheduleDTO;
-import com.example.demo3.entity.Schedule;
-import com.example.demo3.repository.ScheduleRepository;
-import com.example.demo3.service.ScheduleService;
+import demo3.controller.service.ScheduleService;
+import demo3.dto.ScheduleDTO;
+import demo3.entity.Schedule;
+import demo3.repository.ScheduleRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,26 +47,16 @@ public class ScheduleController {
 
     @PutMapping("/{scheduleId}")
     public ResponseEntity<Schedule> updateSchedule(@PathVariable("scheduleId") Integer id, @RequestBody Schedule schedule) {
-//            Schedule scheduleRequest = mapper.map(scheduleDTO, Schedule.class);
-//            Schedule schedule = scheduleService.updateSchedule(scheduleId, scheduleRequest);
-//            ScheduleDTO scheduleResponse = mapper.map(scheduleRequest, ScheduleDTO.class);
         if (scheduleRepository.findById(id).isPresent()) {
             scheduleService.updateSchedule(id, schedule);
             return ResponseEntity.status(HttpStatus.OK).body(schedule);
         } else {
             throw new Error("No such element");
         }
-
-
     }
 
     @PostMapping()
     public ResponseEntity<ScheduleDTO> saveSchedule(@RequestBody Schedule schedule) {
-//            Schedule scheduleRequest = mapper.map(scheduleDTO, Schedule.class);
-//            Schedule schedule = scheduleService.saveSchedule(scheduleRequest);
-//            ScheduleDTO scheduleResponse = mapper.map(schedule, ScheduleDTO.class);
-
-
         ScheduleDTO dto = new ScheduleDTO();
         dto.setProjectId(schedule.getProjectId());
         dto.setNumberOfHours(schedule.getNumberOfHours());

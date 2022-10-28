@@ -1,7 +1,9 @@
-package demo3.service;
+package demo3.controller.service;
 
-import com.example.demo3.entity.Project;
-import com.example.demo3.repository.ProjectRepository;
+
+
+import demo3.entity.Project;
+import demo3.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
