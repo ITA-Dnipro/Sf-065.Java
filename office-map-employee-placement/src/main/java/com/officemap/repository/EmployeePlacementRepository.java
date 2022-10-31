@@ -1,9 +1,9 @@
 package com.officemap.repository;
 
-import com.officemap.authorization.AuthorizationToken;
+import com.officemap.database.EmployeePlacement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AuthorizationTokenRepository extends JpaRepository<AuthorizationToken, Long> {
+public interface EmployeePlacementRepository extends JpaRepository<EmployeePlacement, Long> {
 }
