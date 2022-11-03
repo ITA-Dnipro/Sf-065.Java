@@ -1,9 +1,7 @@
 package com.example.workingschedule.entity;
 
-
-
-import com.sun.istack.NotNull;
 import com.example.workingschedule.enums.ProjectType;
+import com.sun.istack.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -32,6 +30,8 @@ public class Project {
 
     @CreationTimestamp
     private Date startDate;
+    @CreationTimestamp
+    private Date endDate;
 
     public Integer getId() {
         return id;
@@ -89,11 +89,8 @@ public class Project {
         this.endDate = endDate;
     }
 
-    @CreationTimestamp
-    private Date endDate;
-
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "projectId", referencedColumnName = "id")
-    List <Schedule> schedules;
+    List<Schedule> schedules;
 
 }

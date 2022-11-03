@@ -1,12 +1,17 @@
 package com.example.workingschedule.dto;
 
-
 import com.example.workingschedule.enums.ProjectType;
 
 import java.util.Date;
 
 public class ProjectDTO {
     private Integer id;
+    private Date startDate;
+    private Date endDate;
+    private Integer budget;
+    private ProjectType status;
+    private String name;
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -16,12 +21,13 @@ public class ProjectDTO {
         this.id = id;
     }
 
-    private Date startDate;
-    private Date endDate;
-    private ProjectType status;
-    private String name;
+    public Integer getBudget() {
+        return budget;
+    }
 
-    private Integer userId;
+    public void setBudget(Integer budget) {
+        this.budget = budget;
+    }
 
     public Integer getUserId() {
         return userId;

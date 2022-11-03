@@ -1,11 +1,21 @@
 package com.example.workingschedule.dto;
 
+import java.time.LocalDate;
+
 public class ScheduleDTO {
     private Integer numberOfHours;
     private Integer projectId;
     private Integer userId;
     private Integer id;
+    private LocalDate dateOfCreation = LocalDate.now();
 
+    public LocalDate getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    public void setDateOfCreation(LocalDate dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
+    }
     public Integer getId() {
         return id;
     }
