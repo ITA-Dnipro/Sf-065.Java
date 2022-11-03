@@ -3,6 +3,7 @@ package com.example.workingschedule.entity;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "schedules")
@@ -11,6 +12,14 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
+    private Integer numberOfHours;
+
+    private Integer projectId;
+
+    private Integer userId;
+    private LocalDate dateOfCreation = LocalDate.now();
+
 
     public Integer getId() {
         return id;
@@ -28,13 +37,13 @@ public class Schedule {
         this.numberOfHours = numberOfHours;
     }
 
+    public LocalDate getDateOfCreation() {
+        return dateOfCreation;
+    }
 
-    @NotNull
-    private Integer numberOfHours;
-
-    private Integer projectId;
-
-private Integer userId;
+    public void setDateOfCreation(LocalDate dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
+    }
 
     public Integer getUserId() {
         return userId;
