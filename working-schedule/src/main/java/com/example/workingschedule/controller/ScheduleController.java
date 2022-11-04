@@ -64,24 +64,16 @@ public class ScheduleController {
     }
 
     @PutMapping("/{scheduleId}")
-    public ResponseEntity<Schedule> updateSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable("scheduleId") Integer id, @RequestBody Schedule schedule) {
-        scheduleService.updateSchedule(token, id, schedule);
-        return ResponseEntity.status(HttpStatus.OK).body(schedule);
+    public ResponseEntity<ScheduleDTO> updateSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable("scheduleId") Integer id, @RequestBody ScheduleDTO scheduleDTO) {
+        scheduleService.updateSchedule(id, scheduleDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleDTO);
 
     }
 
 
     @PostMapping()
     public ResponseEntity<ScheduleDTO> saveSchedule(@RequestHeader(name = "Authorization") String token, @RequestBody ScheduleDTO scheduleDTO) {
-        Integer userId = userService.getUser(token).getId();
-        scheduleDTO.setUserId(userId);
-        Schedule schedule = new Schedule();
-        schedule.setDateOfCreation(scheduleDTO.getDateOfCreation());
-        schedule.setId(scheduleDTO.getId());
-        schedule.setUserId(scheduleDTO.getUserId());
-        schedule.setProjectId(scheduleDTO.getProjectId());
-        schedule.setNumberOfHours(scheduleDTO.getNumberOfHours());
-        scheduleService.saveSchedule(token, schedule);
+        scheduleService.saveSchedule(token,scheduleDTO);
         return ResponseEntity.status(HttpStatus.OK).body(scheduleDTO);
 
 

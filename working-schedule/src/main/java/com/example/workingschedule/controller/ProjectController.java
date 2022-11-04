@@ -63,28 +63,15 @@ public class ProjectController {
 
 
     @PutMapping("/{projectId}")
-    public ResponseEntity<Project> updateProject(@RequestHeader(name = "Authorization") String token, @PathVariable(value = "projectId") Integer projectId, @RequestBody Project project) {
-        projectService.updateProject(token, projectId, project);
-        return ResponseEntity.status(HttpStatus.OK).body(project);
+    public ResponseEntity<ProjectDTO> updateProject(@RequestHeader(name = "Authorization") String token, @PathVariable(value = "projectId") Integer projectId, @RequestBody ProjectDTO projectDTO) {
+        projectService.updateProject(projectId, projectDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(projectDTO);
 
     }
 
     @PostMapping()
     public ResponseEntity<ProjectDTO> saveProject(@RequestHeader(name = "Authorization") String token, @RequestBody ProjectDTO projectDTO) {
-
-        Integer userId = userService.getUser(token).getId();
-        projectDTO.setUserId(userId);
-        Project project = new Project();
-        project.setUserId(projectDTO.getUserId());
-        project.setName(projectDTO.getName());
-        project.setBudget(projectDTO.getBudget());
-        project.setStatus(projectDTO.getStatus());
-        project.setId(projectDTO.getId());
-        project.setEndDate(projectDTO.getEndDate());
-        project.setStartDate(projectDTO.getStartDate());
-        projectService.saveProject(token, project);
+        projectService.saveProject(token, projectDTO);
         return ResponseEntity.status(HttpStatus.OK).body(projectDTO);
-
-
     }
 }

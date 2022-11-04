@@ -1,5 +1,6 @@
 package com.example.workingschedule.service;
 
+import com.example.workingschedule.dto.ProjectDTO;
 import com.example.workingschedule.entity.Project;
 import com.example.workingschedule.enums.ProjectType;
 import com.example.workingschedule.repository.ProjectRepository;
@@ -46,12 +47,22 @@ public class ProjectService {
 
     }
 
-    public Project saveProject(@RequestHeader(name = "Authorization") String token, Project project) {
+    public Project saveProject(@RequestHeader(name = "Authorization") String token, ProjectDTO projectDTO) {
+        Integer userId = userService.getUser(token).getId();
+        projectDTO.setUserId(userId);
+        Project project = new Project();
+        project.setUserId(projectDTO.getUserId());
+        project.setName(projectDTO.getName());
+        project.setBudget(projectDTO.getBudget());
+        project.setStatus(projectDTO.getStatus());
+        project.setId(projectDTO.getId());
+        project.setEndDate(projectDTO.getEndDate());
+        project.setStartDate(projectDTO.getStartDate());
         return projectRepository.save(project);
 
     }
 
-    public Project updateProject(@RequestHeader(name = "Authorization") String token, Integer id, Project projectRequest) {
+    public Project updateProject(Integer id, ProjectDTO projectRequest) {
         Project project = projectRepository.findById(id).orElseThrow();
         project.setBudget(projectRequest.getBudget());
         project.setName(projectRequest.getName());
