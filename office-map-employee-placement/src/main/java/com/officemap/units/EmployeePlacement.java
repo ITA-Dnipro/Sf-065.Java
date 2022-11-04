@@ -1,4 +1,4 @@
-package com.officemap.database;
+package com.officemap.units;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "allocations")
+@Table(name = "placements")
 public class EmployeePlacement {
 
     @Id

@@ -1,22 +1,22 @@
 package com.officemap.dto;
 
-public class StructureDto {
+public class ComponentDto {
     private Long id;
-    private String structureType;
+    private String componentType;
     private String name;
     private Long parentId;
     private String details;
 
 
-    public StructureDto(Long id, String structureType, String name, Long parentId, String details) {
+    public ComponentDto(Long id, String componentType, String name, Long parentId, String details) {
         this.id = id;
-        this.structureType = structureType;
+        this.componentType = componentType;
         this.name = name;
         this.parentId = parentId;
         this.details = details;
     }
 
-    public StructureDto() {
+    public ComponentDto() {
 
     }
 
@@ -28,12 +28,12 @@ public class StructureDto {
         this.id = id;
     }
 
-    public String getStructureType() {
-        return structureType;
+    public String getComponentType() {
+        return componentType;
     }
 
-    public void setStructureType(String structureType) {
-        this.structureType = structureType;
+    public void setComponentType(String componentType) {
+        this.componentType = componentType;
     }
 
     public String getName() {

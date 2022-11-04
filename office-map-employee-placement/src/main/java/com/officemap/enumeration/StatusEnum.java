@@ -1,12 +1,12 @@
-package com.officemap.entity;
+package com.officemap.enumeration;
 
-public enum DeskType {
+public enum StatusEnum {
     AVAILABLE("Available"),
-    OCCUPIED("Occupied");
+    OCCUPIED("Employee id: "); // ToAdd employee ID
 
     private String status;
 
-    DeskType(String status) {
+    StatusEnum(String status) {
         this.status = status;
     }
     public String getStatus() {
