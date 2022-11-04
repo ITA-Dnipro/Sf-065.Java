@@ -15,6 +15,7 @@ import static com.officemap.common.Url.URL_V1_VERIFY;
 @Service
 @RestController
 @RequestMapping(URL_V1_VERIFY)
+
 public class AuthorizationController {
     private final WebClient.Builder webClientBuilder;
 
