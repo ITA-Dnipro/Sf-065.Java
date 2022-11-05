@@ -84,7 +84,9 @@ public class ComponentsService {
     public Object updateComponent(Long id, RequestCompose request) {
         if(componentRepository.findById(id).isPresent()) {
             Component componentToUpdate = componentRepository.findById(id).get();
-            componentToUpdate.setDetails(request.getDetails());
+            if(componentToUpdate.getComponentEnum() != DESK) {
+                componentToUpdate.setDetails(request.getDetails());
+            }
             componentToUpdate.setName(request.getName());
             componentRepository.save(componentToUpdate);
         return componentMapper.componentEntityToDto(componentToUpdate);
@@ -102,6 +104,7 @@ public class ComponentsService {
 
             /* add the requested component for deleting */
             componentsToDelete.add(componentToDelete);
+            deletePlacementsByDeskId(componentsToDelete);
 
             componentRepository.deleteAll(componentsToDelete);
             return "Component ID: " + id + " is DELETED";
@@ -131,7 +134,6 @@ public class ComponentsService {
             temporaryList.forEach(component -> currentComponentChildren.addAll(componentRepository.findAllByParentId(component.getId())));
             temporaryList.clear();
             if(!currentComponentChildren.isEmpty()) {
-                deletePlacementsByDeskId(currentComponentChildren);
                 childComponents.addAll(currentComponentChildren);
                 temporaryList.addAll(currentComponentChildren);
             } else {
