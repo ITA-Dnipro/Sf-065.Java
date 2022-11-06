@@ -2,6 +2,7 @@ package com.example.workingschedule.controller;
 
 import com.example.workingschedule.dto.ScheduleDTO;
 import com.example.workingschedule.entity.Schedule;
+import com.example.workingschedule.exception.InvalidTokenException;
 import com.example.workingschedule.repository.ScheduleRepository;
 import com.example.workingschedule.service.ScheduleService;
 import com.example.workingschedule.service.UserService;
@@ -24,19 +25,21 @@ public class ScheduleController {
     private ModelMapper mapper = new ModelMapper();
 
     @Autowired
-    public ScheduleController(ScheduleService scheduleService, ScheduleRepository scheduleRepository, UserService userService) {
+    public ScheduleController(ScheduleService scheduleService, ScheduleRepository scheduleRepository, UserService userService)  {
         this.scheduleService = scheduleService;
         this.scheduleRepository = scheduleRepository;
         this.userService = userService;
     }
 
     @GetMapping()
-    private List<ScheduleDTO> getAllSchedules(@RequestHeader(name = "Authorization") String token) {
+    private List<ScheduleDTO> getAllSchedules(@RequestHeader(name = "Authorization") String token) throws InvalidTokenException {
+        userService.validateUser(token);
         return scheduleService.getAllSchedules().stream().map(schedule -> mapper.map(schedule, ScheduleDTO.class)).collect(Collectors.toList());
     }
 
     @GetMapping("/{scheduleId}")
-    private ResponseEntity<ScheduleDTO> getSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable Integer scheduleId) {
+    private ResponseEntity<ScheduleDTO> getSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable Integer scheduleId) throws InvalidTokenException {
+        userService.validateUser(token);
         Schedule schedule = scheduleService.getScheduleById(scheduleId);
         ScheduleDTO scheduleDTO = mapper.map(schedule, ScheduleDTO.class);
         scheduleDTO.setProjectId(schedule.getProjectId());
@@ -46,25 +49,29 @@ public class ScheduleController {
 
 
     @GetMapping("/userId/{userId}")
-    private List<ScheduleDTO> getScheduleByUserId(@RequestHeader(name = "Authorization") String token, @PathVariable(value = "userId") Integer userId) {
+    private List<ScheduleDTO> getScheduleByUserId(@RequestHeader(name = "Authorization") String token, @PathVariable(value = "userId") Integer userId) throws InvalidTokenException {
+        userService.validateUser(token);
         return scheduleService.getScheduleByUserId(userId).stream().map(schedule -> mapper.map(schedule, ScheduleDTO.class)).collect(Collectors.toList());
 
     }
 
 
     @GetMapping("/projectId/{projectId}")
-    private List<ScheduleDTO> getScheduleByProjectId(@RequestHeader(name = "Authorization") String token, @PathVariable(value = "projectId") Integer projectId) {
+    private List<ScheduleDTO> getScheduleByProjectId(@RequestHeader(name = "Authorization") String token, @PathVariable(value = "projectId") Integer projectId) throws InvalidTokenException {
+        userService.validateUser(token);
         return scheduleService.getScheduleByProjectId(projectId).stream().map(schedule -> mapper.map(schedule, ScheduleDTO.class)).collect(Collectors.toList());
     }
 
 
     @DeleteMapping("/{scheduleId}")
-    private void deleteSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable Integer scheduleId) {
+    private void deleteSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable Integer scheduleId) throws InvalidTokenException {
+        userService.validateUser(token);
         scheduleService.deleteSchedule(scheduleId);
     }
 
     @PutMapping("/{scheduleId}")
-    public ResponseEntity<ScheduleDTO> updateSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable("scheduleId") Integer id, @RequestBody ScheduleDTO scheduleDTO) {
+    public ResponseEntity<ScheduleDTO> updateSchedule(@RequestHeader(name = "Authorization") String token, @PathVariable("scheduleId") Integer id, @RequestBody ScheduleDTO scheduleDTO) throws InvalidTokenException {
+        userService.validateUser(token);
         scheduleService.updateSchedule(id, scheduleDTO);
         return ResponseEntity.status(HttpStatus.OK).body(scheduleDTO);
 
@@ -72,7 +79,8 @@ public class ScheduleController {
 
 
     @PostMapping()
-    public ResponseEntity<ScheduleDTO> saveSchedule(@RequestHeader(name = "Authorization") String token, @RequestBody ScheduleDTO scheduleDTO) {
+    public ResponseEntity<ScheduleDTO> saveSchedule(@RequestHeader(name = "Authorization") String token, @RequestBody ScheduleDTO scheduleDTO) throws InvalidTokenException {
+        userService.validateUser(token);
         scheduleService.saveSchedule(token,scheduleDTO);
         return ResponseEntity.status(HttpStatus.OK).body(scheduleDTO);
 
