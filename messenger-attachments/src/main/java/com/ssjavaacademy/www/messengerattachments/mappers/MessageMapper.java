@@ -14,8 +14,7 @@ import java.util.Set;
 
 @Component("messageMapper")
 public class MessageMapper {
-
-    public Message messagePostDtoToMessage(MessagePostDto messagePostDto) throws IOException {
+    public Message messagePostDtoToMessage(MessagePostDto messagePostDto) {
         Message message = new Message();
 
         message.setText(messagePostDto.getText());
@@ -56,7 +55,7 @@ public class MessageMapper {
     public List<MessageGetDto> messagesToMessageGetDtoList(List<Message> messages) {
         List<MessageGetDto> res = new ArrayList<>();
 
-        for (Message m: messages) {
+        for (Message m : messages) {
             res.add(messageToMessageGetDto(m));
         }
 

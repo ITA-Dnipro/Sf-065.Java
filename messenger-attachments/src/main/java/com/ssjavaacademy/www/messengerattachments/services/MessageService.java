@@ -9,9 +9,9 @@ import com.ssjavaacademy.www.messengerattachments.mappers.MessageMapper;
 import com.ssjavaacademy.www.messengerattachments.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import static com.ssjavaacademy.www.messengerattachments.mappers.MessageMapper.messageToMessageGetDto;
@@ -43,9 +43,9 @@ public class MessageService {
         messageRepository.delete(body);
     }
 
-    public MessageGetDto updateMessageByDto(int id, MessagePostDto messageDto, HashSet<MultipartFile> attachments) throws IOException, MessageNotFoundException {
+    public MessageGetDto updateMessageByDto(int id, MessagePostDto messageDto, HashSet<String> attachments) throws IOException, MessageNotFoundException {
         Message message = messageMapper.messagePostDtoToMessage(messageDto);
-        setMessageFilesSet(attachments, message);
+        setMessageFilesSet(message, attachments);
         message = updateMessage(id, message);
 
         return messageToMessageGetDto(message);
@@ -61,17 +61,19 @@ public class MessageService {
         return oldMess;
     }
 
-    public static void setMessageFilesSet(Set<MultipartFile> documents, Message message) throws IOException {
+    public static void setMessageFilesSet(Message message, Set<String> files) throws IOException {
         Set<File> fileSet = message.getFiles();
 
-        for (MultipartFile s : documents) {
-                File f = new File();
-                f.setMessageId(message);
-                f.setFileContent(s.getBytes());
-                f.setFileName(s.getOriginalFilename());
-                f.setFileSize(s.getSize());
-                fileSet.add(f);
+        for (String s : files) {
+            File f = new File();
+            f.setMessageId(message);
+            String[] agh = s.split("/");
+
+            f.setFileName(agh[agh.length - 2] + LocalDateTime.now().getNano());
+            f.setFilePath(s);
+            fileSet.add(f);
         }
+        message.setFiles(fileSet);
     }
 
     public List<MessageGetDto> getInboxNewMessages(String authorization) {
@@ -95,7 +97,7 @@ public class MessageService {
         return messageToMessageGetDto(message);
     }
 
-    public Message getInboxMessageById(long id,List<Message> inboxMessages) throws MessageNotFoundException {
+    public Message getInboxMessageById(long id, List<Message> inboxMessages) throws MessageNotFoundException {
         boolean isInInbox = false;
         Message message = null;
         for (Message m : inboxMessages) {
@@ -115,9 +117,11 @@ public class MessageService {
         return message;
     }
 
-    public void createMessage(MessagePostDto messageDto, HashSet<MultipartFile> attachments, String authorization) throws IOException {
+    public void createMessage(MessagePostDto messageDto, String authorization) throws IOException {
         Message message = messageMapper.messagePostDtoToMessage(messageDto);
-        setMessageFilesSet(attachments, message);
+
+        Set<String> filePaths = messageDto.getAttachments();
+        setMessageFilesSet(message, filePaths);
         message.setFromUser(userService.getUser(authorization).getUsername());
         messageRepository.save(message);
 
@@ -130,5 +134,13 @@ public class MessageService {
     public void deleteMessage(long id) throws MessageNotFoundException {
         Message body = findById(id).orElseThrow(() -> new MessageNotFoundException("Message Not Found"));
         delete(body);
+    }
+
+    public List<Message> findByIsRead(boolean b) {
+        return messageRepository.findByIsRead(b);
+    }
+
+    public List<Message> findByFromUser(String username) {
+        return messageRepository.findByFromUser(username);
     }
 }

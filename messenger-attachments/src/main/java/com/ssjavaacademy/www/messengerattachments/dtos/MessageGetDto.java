@@ -3,7 +3,7 @@ package com.ssjavaacademy.www.messengerattachments.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,14 +20,14 @@ public class MessageGetDto {
     private String text;
 
     @JsonProperty("createdAt")
-    private Date createdAt;
+    private Instant createdAt;
 
     @JsonProperty("fromUser")
     private String fromUser;
 
     @JsonProperty("toUsers")
     private String toUsers;
-
+    @JsonProperty("isRead")
     private Boolean isRead;
 
     @JsonProperty("files")
@@ -41,10 +41,6 @@ public class MessageGetDto {
         this.files = files;
     }
 
-    public Long getMessageId() {
-        return messageId;
-    }
-
     public String getSubject() {
         return subject;
     }
@@ -53,20 +49,12 @@ public class MessageGetDto {
         return text;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
     public String getFromUser() {
         return fromUser;
     }
 
     public String getToUsers() {
         return toUsers;
-    }
-
-    public Boolean getRead() {
-        return isRead;
     }
 
     public void setMessageId(Long messageId) {
@@ -81,7 +69,7 @@ public class MessageGetDto {
         this.text = text;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 

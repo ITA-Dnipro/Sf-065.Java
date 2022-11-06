@@ -1,11 +1,11 @@
 package com.ssjavaacademy.www.messengerattachments.validators;
 
-
 import com.ssjavaacademy.www.messengerattachments.exceptionHandlers.NotValidJsonBodyException;
 
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import java.lang.reflect.Field;
+
 
 public class JsonRequestValidator {
     public static <T> void validateJsonInput(T object) throws NotValidJsonBodyException {

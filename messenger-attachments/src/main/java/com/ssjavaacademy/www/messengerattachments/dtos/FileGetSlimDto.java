@@ -9,16 +9,8 @@ public class FileGetSlimDto {
     @JsonProperty("fileName")
     private String fileName;
 
-    public Long getFileId() {
-        return fileId;
-    }
-
     public void setFileId(Long fileId) {
         this.fileId = fileId;
-    }
-
-    public String getFileName() {
-        return fileName;
     }
 
     public void setFileName(String fileName) {
