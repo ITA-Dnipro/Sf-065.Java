@@ -33,7 +33,8 @@ public class UserService {
     public String validateUser(String token) throws InvalidTokenException  {
         return webClientBuilder.build().get()
 
-                .uri("http://employee-management-auth:8091/api/v1/secured/authentication")
+
+                .uri("http://localhost:8091/api/v1/secured/authentication")
                 .header("Authorization", token)
                 .retrieve()
                 .onStatus(status -> status.value() == HttpStatus.UNAUTHORIZED.value(),
