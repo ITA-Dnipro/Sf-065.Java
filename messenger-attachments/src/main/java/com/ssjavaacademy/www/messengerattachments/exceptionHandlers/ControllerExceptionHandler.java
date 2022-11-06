@@ -17,10 +17,11 @@ public class ControllerExceptionHandler {
         return new ErrorMessage("Authorization token is empty", request.getDescription(false));
     }
 
+
     @ExceptionHandler(EmptyTokenException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public ErrorMessage emptyTokenException(EmptyTokenException ex, WebRequest request) {
-        return new ErrorMessage("Authorization token is empty", request.getDescription(false));
+        return new ErrorMessage(ex.getMessage(), request.getDescription(false));
     }
 
     @ExceptionHandler({MessageNotFoundException.class})

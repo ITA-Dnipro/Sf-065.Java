@@ -9,7 +9,7 @@ public class EmptyTokenException extends Exception {
 
     public static void isTokenEmpty(String authorization) throws EmptyTokenException {
         if (Objects.equals(authorization, null) || authorization.isEmpty()) {
-            throw new EmptyTokenException("Token is empty");
+            throw new EmptyTokenException("Token is empty!");
         }
     }
 }

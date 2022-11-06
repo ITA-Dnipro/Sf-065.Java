@@ -1,34 +1,38 @@
 package com.ssjavaacademy.www.messengerattachments.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 public class MessagePostDto {
     @Column(name = "subject", nullable = false)
-    @Size(min = 2, max = 255, message = "must be between 2 and 255 characters long")
+    @NotNull
     @JsonProperty("subject")
+    @Size(min = 2, max = 255, message = "must be between 2 and 255 characters long")
     private String subject;
 
-    @Column(name = "text", nullable = false)
-    @Size(min = 1, max = 5000, message = "must be between 1 and 5000 characters long")
     @JsonProperty("text")
+    @Column(name = "text", nullable = false)
+    @NotNull
+    @Size(min = 1, max = 5000, message = "must be between 1 and 5000 characters long")
     private String text;
 
     @Column(name = "from_user", nullable = false)
+    @NotNull
     @JsonProperty("fromUser")
     private String fromUser;
 
     @Column(name = "to_user", nullable = false)
+    @NotNull
     @JsonProperty("toUsers")
     private String toUsers;
 
-    @JsonProperty("attachments")
-    private Set<MultipartFile> attachments;
+    @JsonProperty("files")
+    private Set<String> attachments;
 
     public String getSubject() {
         return subject;
@@ -62,15 +66,15 @@ public class MessagePostDto {
         this.toUsers = toUsers;
     }
 
-    public Set<MultipartFile> getAttachments() {
+    public Set<String> getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(Set<MultipartFile> attachments) {
+    public void setAttachments(Set<String> attachments) {
         this.attachments = attachments;
     }
 
-    public MessagePostDto(String subject, String text, String fromUser, String toUsers, Set<MultipartFile> attachments) {
+    public MessagePostDto(String subject, String text, String fromUser, String toUsers, Set<String> attachments) {
         this.subject = subject;
         this.text = text;
         this.fromUser = fromUser;

@@ -1,9 +1,7 @@
 package com.ssjavaacademy.www.messengerattachments.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "files")
@@ -13,34 +11,28 @@ public class File {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long fileId;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "message_id", nullable = true)
+    @JoinColumn(name = "message_id", nullable = false)
     private Message messageId;
 
-    @Column(name = "file_name", nullable = true)
+    @Column(name = "file_name", nullable = false)
     private String fileName;
 
-    @Column(name = "file_size", nullable = true)
-    private long fileSize;
+    @Column(name = "file_path", nullable = false)
+    private String filePath;
 
-    @Column(name = "file_content", nullable = false)
-    private byte[] fileContent;
-
-    public File(Long fileId, Message messageId, String bookPicture, long fileSize, byte[] fileContent) {
+    public File(Long fileId, Message messageId, String bookPicture, String fileContent) {
         this.fileId = fileId;
         this.messageId = messageId;
         this.fileName = bookPicture;
-        this.fileSize = fileSize;
-        this.fileContent = fileContent;
+        this.filePath = fileContent;
     }
 
     public File() {
         this.fileId = null;
         this.messageId = null;
         this.fileName = null;
-        this.fileSize = 0;
-        this.fileContent = null;
+        this.filePath = null;
     }
 
     public Long getFileId() {
@@ -67,20 +59,12 @@ public class File {
         this.fileName = fileName;
     }
 
-    public long getFileSize() {
-        return fileSize;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFileSize(long fileSize) {
-        this.fileSize = fileSize;
-    }
-
-    public byte[] getFileContent() {
-        return fileContent;
-    }
-
-    public void setFileContent(byte[] fileContent) {
-        this.fileContent = fileContent;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override
@@ -88,8 +72,7 @@ public class File {
         return "File{" +
                 "fileId=" + fileId +
                 ", fileName='" + fileName + '\'' +
-                ", fileSize=" + fileSize +
-                ", fileContent=" + Arrays.toString(fileContent) +
+                ", fileContent=" + filePath +
                 '}';
     }
 }

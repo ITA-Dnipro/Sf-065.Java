@@ -5,7 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.Instant;
 import java.util.Set;
 
 @Entity
@@ -29,8 +29,7 @@ public class Message {
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
-    @Temporal(TemporalType.DATE)
-    private Date createdAt;
+    private Instant createdAt;
 
     @Column(name = "from_user", nullable = false)
     @JsonProperty("fromUser")
@@ -70,11 +69,11 @@ public class Message {
         this.text = text;
     }
 
-    public Date getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -110,7 +109,7 @@ public class Message {
         this.files = files;
     }
 
-    public Message(Long messageId, String subject, String text, Date createdAt, String fromUser, String toUsers, Boolean isRead, Set<File> files) {
+    public Message(Long messageId, String subject, String text, Instant createdAt, String fromUser, String toUsers, Boolean isRead, Set<File> files) {
         this.messageId = messageId;
         this.subject = subject;
         this.text = text;
