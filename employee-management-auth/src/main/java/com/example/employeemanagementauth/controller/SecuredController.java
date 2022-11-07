@@ -2,6 +2,7 @@ package com.example.employeemanagementauth.controller;
 
 import com.example.employeemanagementauth.dto.AuthenticationResponce;
 import com.example.employeemanagementauth.dto.LoginRequest;
+import com.example.employeemanagementauth.dto.UserDTO;
 import com.example.employeemanagementauth.model.User;
 import com.example.employeemanagementauth.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -29,9 +30,16 @@ public class SecuredController {
     }
 
     @GetMapping("/authentication")
-    public ResponseEntity<?> authentication() {
+    public ResponseEntity<UserDTO> authentication() {
         User currenUser = authService.getCurrentUser();
-      return  ResponseEntity.status(HttpStatus.OK).body(currenUser);
+        return ResponseEntity.status(HttpStatus.OK).body(UserDTO.builder()
+                .id(currenUser.getId())
+                .username(currenUser.getUsername())
+                .email(currenUser.getEmail())
+                .phone(currenUser.getPhone())
+                .position(currenUser.getPosition())
+                .department(currenUser.getDepartment())
+                .build());
     }
 }
 
