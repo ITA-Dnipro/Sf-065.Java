@@ -49,7 +49,8 @@ public class AuthController {
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
-        refreshtokenService.deleteToken(refreshTokenRequest.getRefreshtoken());
+        refreshtokenService.deleteToken(refreshTokenRequest.getRefreshToken());
+        //TODO invalidate current JWT-token
         return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!!");
     }
 

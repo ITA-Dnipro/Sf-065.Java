@@ -6,11 +6,13 @@ import com.example.employeemanagementauth.repository.RefreshtokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class RefreshtokenServiceImpl implements RefreshtokenService {
     private final RefreshtokenRepository refreshtokenRepository;
 

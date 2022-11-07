@@ -1,0 +1,13 @@
+insert into PERSON values (1,'William',null);
+insert into PERSON values (2,'Henry',1);
+insert into PERSON values (3,'Matt',2);
+insert into PERSON values (4,'Alisa',2);
+insert into PERSON values (5,'May',1);
+insert into PERSON values (6,'Alexa',4);
+insert into PERSON values (7,'Sophi',3);
+insert into PERSON values (8,'Henry1',2);
+insert into PERSON values (9,'Matt1',3);
+insert into PERSON values (10,'Alisa1',3);
+insert into PERSON values (11,'May1',2);
+insert into PERSON values (12,'Alexa1',6);
+insert into PERSON values (13,'Sophi1',4);

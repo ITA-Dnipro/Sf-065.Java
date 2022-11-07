@@ -1,13 +1,19 @@
 package com.example.employeemanagementauth.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @Getter
@@ -18,9 +24,10 @@ import java.util.Objects;
 @Entity
 @Builder
 @Table(name = "users")
+@TypeDef(name = "json", typeClass = JsonType.class)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message = "Username is required")
@@ -36,6 +43,21 @@ public class User {
     private Instant created;
 
     private boolean enabled;
+
+    private String position;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinColumn(name = "departmentId", referencedColumnName = "id")
+    @JsonBackReference
+    private Department department;
+
+    private String phone;
+
+    @Type(type = "json")
+    @Column(columnDefinition = "jsonb")
+    @ToString.Exclude
+    private Map<String, String> properties = new HashMap<>();
 
     @Override
     public boolean equals(Object o) {
