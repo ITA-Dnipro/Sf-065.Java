@@ -34,7 +34,7 @@ public class AuthorizationController {
                 .header("Authorization", authorizationToken)
                 .retrieve()
                 .onStatus(httpStatus -> httpStatus.value() == HttpStatus.UNAUTHORIZED.value(),
-                        clientResponse -> Mono.error(new Exception("INVALID TOKEN")))
+                        clientResponse -> Mono.error(new UnauthorizedTokenException("UNAUTHORIZED TOKEN")))
                 .bodyToMono(String.class)
                 .block();
         return ResponseEntity.ok(response);
