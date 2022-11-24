@@ -1,8 +1,10 @@
 package com.example.workingschedule.dto;
 
+
+
 import java.time.LocalDate;
 
-public class ScheduleDTO {
+public class ScheduleDTO{
     private Integer numberOfHours;
     private Integer projectId;
     private Integer userId;

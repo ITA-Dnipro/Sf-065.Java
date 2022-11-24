@@ -47,7 +47,7 @@ public class ProjectService {
 
     }
 
-    public Project saveProject(@RequestHeader(name = "Authorization") String token, ProjectDTO projectDTO) {
+    public ProjectDTO saveProject(@RequestHeader(name = "Authorization") String token, ProjectDTO projectDTO) {
         Integer userId = userService.getUser(token).getId();
         projectDTO.setUserId(userId);
         Project project = new Project();
@@ -55,19 +55,20 @@ public class ProjectService {
         project.setName(projectDTO.getName());
         project.setBudget(projectDTO.getBudget());
         project.setStatus(projectDTO.getStatus());
-        project.setId(projectDTO.getId());
         project.setEndDate(projectDTO.getEndDate());
         project.setStartDate(projectDTO.getStartDate());
-        return projectRepository.save(project);
+        projectRepository.save(project);
+        projectDTO.setId(project.getId());
+        return projectDTO;
 
     }
 
-    public Project updateProject(Integer id, ProjectDTO projectRequest) {
+    public ProjectDTO updateProject(Integer id, ProjectDTO projectRequest) {
         Project project = projectRepository.findById(id).orElseThrow();
         project.setBudget(projectRequest.getBudget());
         project.setName(projectRequest.getName());
         project.setStatus(projectRequest.getStatus());
-        return projectRepository.save(project);
-
+        projectRepository.save(project);
+        return projectRequest;
     }
 }

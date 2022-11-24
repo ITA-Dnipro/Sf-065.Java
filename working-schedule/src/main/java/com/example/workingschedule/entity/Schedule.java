@@ -2,6 +2,7 @@ package com.example.workingschedule.entity;
 
 import com.sun.istack.NotNull;
 
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 public class Schedule {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @NotNull
     private Integer numberOfHours;
@@ -20,6 +21,8 @@ public class Schedule {
     private Integer userId;
     private LocalDate dateOfCreation = LocalDate.now();
 
+    public Schedule() {
+    }
 
     public Integer getId() {
         return id;

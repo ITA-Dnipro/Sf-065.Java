@@ -4,16 +4,17 @@ import com.example.workingschedule.enums.ProjectType;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class Project{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotNull
@@ -22,6 +23,8 @@ public class Project {
     @Enumerated(EnumType.STRING)
     private ProjectType status;
 
+    public Project() {
+    }
 
     private Integer userId;
 
