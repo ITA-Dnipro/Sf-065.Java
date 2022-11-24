@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
         scheme = "bearer")
 @OpenAPIDefinition(info = @io.swagger.v3.oas.annotations.info.Info(
         title = "Office-Map-Employee-Placement API",
-        version = "1.0",
+        version = "2.0",
         description = "Office Map and Employees Placements structure"))
 public class OpenAPI30Configuration {
 
