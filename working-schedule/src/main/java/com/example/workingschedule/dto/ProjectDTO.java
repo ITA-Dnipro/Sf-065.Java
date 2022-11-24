@@ -2,9 +2,10 @@ package com.example.workingschedule.dto;
 
 import com.example.workingschedule.enums.ProjectType;
 
+
 import java.util.Date;
 
-public class ProjectDTO {
+public class ProjectDTO{
     private Integer id;
     private Date startDate;
     private Date endDate;

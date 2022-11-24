@@ -43,26 +43,26 @@ public class ScheduleService {
 
     }
 
-    public Schedule saveSchedule(String token, ScheduleDTO scheduleDTO) {
+    public ScheduleDTO saveSchedule(@RequestHeader(name = "Authorization") String token, ScheduleDTO scheduleDTO) {
         Integer userId = userService.getUser(token).getId();
         scheduleDTO.setUserId(userId);
         Schedule schedule = new Schedule();
-        schedule.setDateOfCreation(scheduleDTO.getDateOfCreation());
-        schedule.setId(scheduleDTO.getId());
         schedule.setUserId(scheduleDTO.getUserId());
+        schedule.setDateOfCreation(scheduleDTO.getDateOfCreation());
         schedule.setProjectId(scheduleDTO.getProjectId());
         schedule.setNumberOfHours(scheduleDTO.getNumberOfHours());
-        return scheduleRepository.save(schedule);
-
+        scheduleRepository.save(schedule);
+        scheduleDTO.setId(schedule.getId());
+        return scheduleDTO;
     }
 
-    public Schedule updateSchedule( Integer id, ScheduleDTO scheduleRequest) {
+    public ScheduleDTO updateSchedule( Integer id, ScheduleDTO scheduleRequest) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow();
         schedule.setNumberOfHours(scheduleRequest.getNumberOfHours());
         schedule.setProjectId(scheduleRequest.getProjectId());
         schedule.setDateOfCreation(scheduleRequest.getDateOfCreation());
-        return scheduleRepository.save(schedule);
-
+        scheduleRepository.save(schedule);
+        return scheduleRequest;
     }
 
     public void deleteSchedule(Integer id) {

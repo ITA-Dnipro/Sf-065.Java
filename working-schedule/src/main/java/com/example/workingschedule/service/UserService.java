@@ -30,9 +30,8 @@ public class UserService {
         return user;
     }
 
-    public String validateUser(String token) throws InvalidTokenException  {
-        return webClientBuilder.build().get()
-
+    public void validateUser(String token) throws InvalidTokenException  {
+         webClientBuilder.build().get()
 
                 .uri("http://localhost:8091/api/v1/secured/authentication")
                 .header("Authorization", token)
@@ -44,4 +43,6 @@ public class UserService {
 
 
     }
+
+
 }
