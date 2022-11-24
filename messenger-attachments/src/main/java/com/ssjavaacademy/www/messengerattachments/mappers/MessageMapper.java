@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component("messageMapper")
 public class MessageMapper {
@@ -19,9 +17,8 @@ public class MessageMapper {
 
         message.setText(messagePostDto.getText());
         message.setSubject(messagePostDto.getSubject());
-        message.setFromUser(messagePostDto.getFromUser());
         message.setToUsers(messagePostDto.getToUsers());
-        Set<File> fileSet = new HashSet<>();
+        List<File> fileSet = new ArrayList<>();
         message.setFiles(fileSet);
 
         return message;

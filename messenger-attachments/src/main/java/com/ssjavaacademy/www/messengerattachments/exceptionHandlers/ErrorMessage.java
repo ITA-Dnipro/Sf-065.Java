@@ -12,6 +12,11 @@ public class ErrorMessage {
         this.message = message;
         this.description = description;
     }
+    public ErrorMessage(String message) {
+        this.timestamp = new Date();
+        this.message = message;
+        this.description = message;
+    }
 
     public String getMessage() {
         return message;

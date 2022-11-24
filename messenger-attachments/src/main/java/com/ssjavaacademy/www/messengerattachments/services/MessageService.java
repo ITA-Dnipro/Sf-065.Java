@@ -8,9 +8,11 @@ import com.ssjavaacademy.www.messengerattachments.exceptionHandlers.MessageNotFo
 import com.ssjavaacademy.www.messengerattachments.mappers.MessageMapper;
 import com.ssjavaacademy.www.messengerattachments.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -62,7 +64,7 @@ public class MessageService {
     }
 
     public static void setMessageFilesSet(Message message, Set<String> files) throws IOException {
-        Set<File> fileSet = message.getFiles();
+        List<File> fileSet = message.getFiles();
 
         for (String s : files) {
             File f = new File();
@@ -125,7 +127,7 @@ public class MessageService {
         message.setFromUser(userService.getUser(authorization).getUsername());
         messageRepository.save(message);
 
-        Set<File> files = message.getFiles();
+        List<File> files = message.getFiles();
         if (files != null) {
             fileService.uploadFiles(files);
         }

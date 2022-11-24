@@ -1,13 +1,14 @@
 package com.ssjavaacademy.www.messengerattachments.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MessageGetDto {
+public class MessageGetDto extends RepresentationModel {
     @Column(name = "message_id", nullable = false)
     @Id
     @JsonProperty("messageId")
@@ -31,14 +32,18 @@ public class MessageGetDto {
     private Boolean isRead;
 
     @JsonProperty("files")
-    private Set<FileGetSlimDto> files;
+    private List<FileGetSlimDto> files;
 
-    public Set<FileGetSlimDto> getFiles() {
+    public List<FileGetSlimDto> getFiles() {
         return files;
     }
 
-    public void setFiles(Set<FileGetSlimDto> files) {
+    public void setFiles(List<FileGetSlimDto> files) {
         this.files = files;
+    }
+
+    public Long getMessageId() {
+        return messageId;
     }
 
     public String getSubject() {
@@ -93,6 +98,6 @@ public class MessageGetDto {
         this.toUsers = "";
         this.isRead = false;
         this.createdAt = null;
-        this.files = new HashSet<>();
+        this.files = new ArrayList<>();
     }
 }

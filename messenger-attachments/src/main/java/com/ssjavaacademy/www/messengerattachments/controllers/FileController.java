@@ -7,19 +7,24 @@ import com.ssjavaacademy.www.messengerattachments.exceptionHandlers.FileNotFound
 import com.ssjavaacademy.www.messengerattachments.mappers.FileMapper;
 import com.ssjavaacademy.www.messengerattachments.services.FileService;
 import com.ssjavaacademy.www.messengerattachments.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static com.ssjavaacademy.www.messengerattachments.exceptionHandlers.EmptyTokenException.isTokenEmpty;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@SecurityRequirement(name = "Authorization")
 @RequestMapping("api/v1/files")
 public class FileController {
     private final FileService fileService;
@@ -32,13 +37,21 @@ public class FileController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<FileGetSlimDto>> getAllFiles(@RequestHeader String authorization) throws EmptyTokenException {
+    public ResponseEntity<CollectionModel<FileGetSlimDto>> getAllFiles(@RequestHeader String authorization) throws EmptyTokenException, FileNotFoundException {
         userService.validateToken(authorization);
         HttpStatus httpStatus = HttpStatus.OK;
         List<File> files = fileService.findAll();
-        Set<FileGetSlimDto> body = FileMapper.fileSetToFileGetSlimDtoSet(new HashSet<>(files));
+        List<FileGetSlimDto> body = FileMapper.fileSetToFileGetSlimDtoSet(new ArrayList<>(files));
 
-        return new ResponseEntity<>(body, httpStatus);
+        for (FileGetSlimDto f : body) {
+            Link singular = linkTo(methodOn(FileController.class).getById(f.getFileId(), authorization)).withSelfRel();
+            f.add(singular);
+        }
+
+        Link link = linkTo(methodOn(FileController.class).getAllFiles(authorization)).withSelfRel();
+
+        return new ResponseEntity<>(CollectionModel.of(body, link), httpStatus);
+
     }
 
     @GetMapping("/{id}")

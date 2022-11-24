@@ -5,7 +5,9 @@ import com.ssjavaacademy.www.messengerattachments.dtos.FileGetSlimDto;
 import com.ssjavaacademy.www.messengerattachments.entities.File;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component("fileMapper")
@@ -28,19 +30,18 @@ public class FileMapper {
         return fileGetDto;
     }
 
-    public  Set<FileGetDto> fileSetToFileGetDtoSet(Set<File> files) {
-        Set<FileGetDto> res = new HashSet<>();
+    public List<FileGetDto> fileSetToFileGetDtoSet(List<File> files) {
+        List<FileGetDto> res = new ArrayList<>();
 
          for (File f : files) {
-            res.add(fileToFileGetDto(f));
-
+             res.add(fileToFileGetDto(f));
         }
 
         return res;
     }
 
-    public static Set<FileGetSlimDto> fileSetToFileGetSlimDtoSet(Set<File> files) {
-        Set<FileGetSlimDto> slimDtoSet = new HashSet<>();
+    public static List<FileGetSlimDto> fileSetToFileGetSlimDtoSet(List<File> files) {
+        List<FileGetSlimDto> slimDtoSet = new ArrayList<>();
 
         for (File file : files) {
             FileGetSlimDto fileGetSlimDto = new FileGetSlimDto();
