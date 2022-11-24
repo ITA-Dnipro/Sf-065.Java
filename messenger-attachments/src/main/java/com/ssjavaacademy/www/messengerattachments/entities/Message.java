@@ -6,14 +6,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "messages")
 public class Message {
     @Column(name = "message_id", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty("messageId")
     private Long messageId;
 
@@ -43,7 +43,7 @@ public class Message {
     private Boolean isRead;
 
     @OneToMany(targetEntity = File.class, mappedBy = "messageId", cascade = CascadeType.ALL)
-    private Set<File> files;
+    private List<File> files;
 
     public Long getMessageId() {
         return messageId;
@@ -101,15 +101,15 @@ public class Message {
         isRead = read;
     }
 
-    public Set<File> getFiles() {
+    public List<File> getFiles() {
         return files;
     }
 
-    public void setFiles(Set<File> files) {
+    public void setFiles(List<File> files) {
         this.files = files;
     }
 
-    public Message(Long messageId, String subject, String text, Instant createdAt, String fromUser, String toUsers, Boolean isRead, Set<File> files) {
+    public Message(Long messageId, String subject, String text, Instant createdAt, String fromUser, String toUsers, Boolean isRead, List<File> files) {
         this.messageId = messageId;
         this.subject = subject;
         this.text = text;

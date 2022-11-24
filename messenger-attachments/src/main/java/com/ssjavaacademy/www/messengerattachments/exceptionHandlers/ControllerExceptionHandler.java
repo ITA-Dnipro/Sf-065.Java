@@ -1,6 +1,7 @@
 package com.ssjavaacademy.www.messengerattachments.exceptionHandlers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,7 +17,6 @@ public class ControllerExceptionHandler {
     public ErrorMessage missingRequestHeaderException(MissingRequestHeaderException ex, WebRequest request) {
         return new ErrorMessage("Authorization token is empty", request.getDescription(false));
     }
-
 
     @ExceptionHandler(EmptyTokenException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
@@ -46,5 +46,13 @@ public class ControllerExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorMessage notValidJsonBodyException(NotValidJsonBodyException ex, WebRequest request) {
         return new ErrorMessage(ex.getMessage(), request.getDescription(false));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorMessage methodArgumentNotValidException(MethodArgumentNotValidException ex, WebRequest request) {
+        String[] trace = ex.getMessage().split(";");
+        String mess = "Property " +ex.getMessage().split("'")[3]+ trace[trace.length-1].split( "default message")[1];
+        return new ErrorMessage(mess, request.getDescription(false));
     }
 }

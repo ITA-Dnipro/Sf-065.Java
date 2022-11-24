@@ -1,8 +1,9 @@
 package com.ssjavaacademy.www.messengerattachments.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.hateoas.RepresentationModel;
 
-public class FileGetSlimDto {
+public class FileGetSlimDto extends RepresentationModel {
     @JsonProperty("fileId")
     private Long fileId;
 
@@ -17,8 +18,16 @@ public class FileGetSlimDto {
         this.fileName = fileName;
     }
 
+    public Long getFileId() {
+        return fileId;
+    }
+
     public FileGetSlimDto() {
         this.fileId = null;
         this.fileName = "";
+    }
+    public FileGetSlimDto(long fileId, String fileName) {
+        this.fileId = fileId;
+        this.fileName = fileName;
     }
 }

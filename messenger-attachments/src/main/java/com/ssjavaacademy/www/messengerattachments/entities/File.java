@@ -1,6 +1,5 @@
 package com.ssjavaacademy.www.messengerattachments.entities;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -8,7 +7,7 @@ import javax.persistence.*;
 public class File {
     @Column(name = "file_id", nullable = false)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fileId;
 
     @ManyToOne(fetch = FetchType.LAZY)
