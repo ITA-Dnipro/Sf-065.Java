@@ -12,7 +12,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthenticationResponce {
+public class AuthenticationResponse {
     private String authenticationToken;
     private String refreshToken;
     private Instant expiresAt;

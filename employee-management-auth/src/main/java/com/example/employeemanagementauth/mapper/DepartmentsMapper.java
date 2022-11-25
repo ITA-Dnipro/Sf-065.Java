@@ -2,11 +2,15 @@ package com.example.employeemanagementauth.mapper;
 
 import com.example.employeemanagementauth.dto.DepartmentsDTO;
 import com.example.employeemanagementauth.model.Department;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface DepartmentsMapper {
-    Department map(DepartmentsDTO departmentsDTO);
+    DepartmentsMapper INSTANCE = Mappers.getMapper(DepartmentsMapper.class);
 
-    DepartmentsDTO mapToDTO(Department department);
+    Department mapDTOtoDepartment(DepartmentsDTO departmentsDTO);
+
+
+    DepartmentsDTO mapDepartmentToDTO(Department department);
 }

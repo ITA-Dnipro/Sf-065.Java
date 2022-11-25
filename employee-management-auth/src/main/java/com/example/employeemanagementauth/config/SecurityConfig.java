@@ -59,6 +59,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                         .antMatchers("/api/v1/auth/**")
                         .permitAll()
+                        .antMatchers("/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/swagger-ui/**")
+                        .permitAll()
                         .anyRequest()
                         .authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)

@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DepartmentRequest {
     private String departmentName;
+    private Long leadId;
 
 }

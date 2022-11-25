@@ -1,25 +1,19 @@
 package com.example.employeemanagementauth.controller;
 
-import com.example.employeemanagementauth.dto.AuthenticationResponce;
-import com.example.employeemanagementauth.dto.LoginRequest;
 import com.example.employeemanagementauth.dto.UserDTO;
 import com.example.employeemanagementauth.model.User;
 import com.example.employeemanagementauth.service.AuthService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.transform.OutputKeys;
 
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/secured")
+@SecurityRequirement(name = "Bearer Authentication")
 public class SecuredController {
 
     private final AuthService authService;
@@ -30,16 +24,10 @@ public class SecuredController {
     }
 
     @GetMapping("/authentication")
-    public ResponseEntity<UserDTO> authentication() {
-        User currenUser = authService.getCurrentUser();
-        return ResponseEntity.status(HttpStatus.OK).body(UserDTO.builder()
-                .id(currenUser.getId())
-                .username(currenUser.getUsername())
-                .email(currenUser.getEmail())
-                .phone(currenUser.getPhone())
-                .position(currenUser.getPosition())
-                .department(currenUser.getDepartment())
-                .build());
+    public ResponseEntity<User> authentication() {
+        User currentUser = authService.getCurrentUser();
+        return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+
     }
 }
 

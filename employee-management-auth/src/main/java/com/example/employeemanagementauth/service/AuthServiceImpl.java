@@ -1,7 +1,7 @@
 package com.example.employeemanagementauth.service;
 
 
-import com.example.employeemanagementauth.dto.AuthenticationResponce;
+import com.example.employeemanagementauth.dto.AuthenticationResponse;
 import com.example.employeemanagementauth.dto.LoginRequest;
 import com.example.employeemanagementauth.dto.RefreshTokenRequest;
 import com.example.employeemanagementauth.dto.RegisterRequest;
@@ -89,13 +89,13 @@ public class AuthServiceImpl implements  AuthService{
     }
 
     @Override
-    public AuthenticationResponce login(LoginRequest loginRequest) {
+    public AuthenticationResponse login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                         loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
-        return AuthenticationResponce.builder()
+        return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshtokenService.generateToken().getToken())
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
@@ -105,10 +105,10 @@ public class AuthServiceImpl implements  AuthService{
 
 
     @Override
-    public AuthenticationResponce refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
             refreshtokenService.validateToken(refreshTokenRequest.getRefreshToken());
         String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
-        return AuthenticationResponce.builder()
+        return AuthenticationResponse.builder()
                 .authenticationToken(token)
                 .refreshToken(refreshTokenRequest.getRefreshToken())
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))

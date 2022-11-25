@@ -1,6 +1,6 @@
 package com.example.employeemanagementauth.controller;
 
-import com.example.employeemanagementauth.dto.AuthenticationResponce;
+import com.example.employeemanagementauth.dto.AuthenticationResponse;
 import com.example.employeemanagementauth.dto.LoginRequest;
 import com.example.employeemanagementauth.dto.RefreshTokenRequest;
 import com.example.employeemanagementauth.dto.RegisterRequest;
@@ -38,19 +38,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public AuthenticationResponce login(@RequestBody @Valid LoginRequest loginRequest) {
+    public AuthenticationResponse login( @Valid  @RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
     }
 
     @PostMapping("/refresh/token")
-    public AuthenticationResponce refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public AuthenticationResponse refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         return authService.refreshToken(refreshTokenRequest);
     }
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         refreshtokenService.deleteToken(refreshTokenRequest.getRefreshToken());
-        //TODO invalidate current JWT-token
         return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!!");
     }
 

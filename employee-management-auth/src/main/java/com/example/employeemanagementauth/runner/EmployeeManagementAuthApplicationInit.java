@@ -36,7 +36,6 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
         createUsers();
         createDepartments();
         setUserToDepartments();
-       // setSubdepartments();
     }
 
     @Transactional
@@ -64,9 +63,10 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
                 .created(Instant.now())
                 .enabled(true)
                 .phone("444-442-2233-2333")
-                .position("engineer-manager")
+                .position("manager")
                 .properties(Map.ofEntries(
-                        entry("wife", "Anna")
+                        entry("wife", "Maria"),
+                        entry("house", "two stairs")
                 ))
                 .build();
 
@@ -78,6 +78,11 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
                 .email("tosho@gmail.com")
                 .created(Instant.now())
                 .enabled(true)
+                .phone("4443-44222-22313-12333")
+                .position("support")
+                .properties(Map.ofEntries(
+                        entry("motor", "Yamaha")
+                ))
                 .build();
 
         userRepository.save(tosho);
@@ -88,6 +93,12 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
                 .email("sasho@gmail.com")
                 .created(Instant.now())
                 .enabled(true)
+                .phone("434-442-223-233")
+                .position("director")
+                .properties(Map.ofEntries(
+                        entry("family", "3 children"),
+                        entry("wife", "Anna")
+                ))
                 .build();
 
         userRepository.save(sasho);
@@ -98,9 +109,47 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
                 .email("stamat@gmail.com")
                 .created(Instant.now())
                 .enabled(true)
+                .phone("444-442-2233-233")
+                .position("worker")
+                .properties(Map.ofEntries(
+                        entry("family", "5 children"),
+                        entry("wife", "Toshka")
+                ))
                 .build();
 
         userRepository.save(stamat);
+
+        User pencho = User.builder()
+                .username("pencho")
+                .password(passwordEncoder.encode("pencho"))
+                .email("pencho@gmail.com")
+                .created(Instant.now())
+                .enabled(true)
+                .phone("4414-442-2233-2331")
+                .position("engineer")
+                .properties(Map.ofEntries(
+                        entry("family", "3 children"),
+                        entry("wife", "Anna")
+                ))
+                .build();
+
+        userRepository.save(pencho);
+
+        User doncho = User.builder()
+                .username("doncho")
+                .password(passwordEncoder.encode("doncho"))
+                .email("doncho@gmail.com")
+                .created(Instant.now())
+                .enabled(true)
+                .phone("4414-442-2233-2331")
+                .position("support")
+                .properties(Map.ofEntries(
+                        entry("family", "3 children"),
+                        entry("wife", "Anna")
+                ))
+                .build();
+
+        userRepository.save(doncho);
     }
 
     @Transactional
@@ -109,14 +158,12 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
         Department marketing = Department.builder()
                 .departmentName("marketing")
                 .enabled(true)
-                .subDepartments(new HashSet<>())
                 .build();
         departmentsRepository.save(marketing);
 
         Department sales = Department.builder()
                 .departmentName("sales")
                 .enabled(true)
-                .subDepartments(new HashSet<>())
                 .build();
 
         departmentsRepository.save(sales);
@@ -124,7 +171,6 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
         Department finance = Department.builder()
                 .departmentName("finance")
                 .enabled(true)
-                .subDepartments(new HashSet<>())
                 .build();
 
 
@@ -133,7 +179,6 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
         Department operations = Department.builder()
                 .departmentName("operations")
                 .enabled(true)
-                .subDepartments(new HashSet<>())
                 .build();
 
         departmentsRepository.save(operations);
@@ -141,7 +186,6 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
         Department hr = Department.builder()
                 .departmentName("hr")
                 .enabled(true)
-                .subDepartments(new HashSet<>())
                 .build();
 
         departmentsRepository.save(hr);
@@ -161,22 +205,7 @@ public class EmployeeManagementAuthApplicationInit implements CommandLineRunner 
         userRepository.save(pesho);
         userRepository.save(gosho);
         userRepository.save(sasho);
-
-
     }
 
-//    @Transactional
-//    void setSubdepartments() {
-//        Department mark = departmentsRepository.findByDepartmentName("marketing").orElseThrow();
-//        Department sales = departmentsRepository.findByDepartmentName("sales").orElseThrow();
-//        Department finance = departmentsRepository.findByDepartmentName("finance").orElseThrow();
-//        Department hr = departmentsRepository.findByDepartmentName("hr").orElseThrow();
-//        Department operations = departmentsRepository.findByDepartmentName("operations").orElseThrow();
-//        finance.setSubDepartments(new HashSet<>());
-//        Department financeChildMark = finance.addSubDepartment(mark.getDepartmentName());
-//        departmentsRepository.save(financeChildMark);
-//        departmentsRepository.save(finance.addSubDepartment(sales.getDepartmentName()));
-//        hr.setSubDepartments(new HashSet<>());
-//        departmentsRepository.save(hr.addSubDepartment(finance.getDepartmentName()));
-//    }
+
 }
