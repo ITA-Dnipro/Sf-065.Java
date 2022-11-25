@@ -43,30 +43,8 @@ public class Department {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parentId", referencedColumnName = "id" )
-    @JsonBackReference
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Department parentDepartment;
-
-    @OneToMany(mappedBy = "parentDepartment")
-    @ToString.Exclude
-    @JsonManagedReference
-    private Set<Department> subDepartments = new HashSet<>();
-
-
-    // helper methods
-
-    public Department addSubDepartment(String departmentName) {
-        Department sub = new Department();
-        sub.setDepartmentName(departmentName);
-        this.subDepartments.add(sub);
-        sub.setParentDepartment(this);
-        return sub;
-    }
-
-    public void moveDepartment(Department newParent) {
-        this.getParentDepartment().getSubDepartments().remove(this);
-        this.setParentDepartment(newParent);
-        newParent.getSubDepartments().add(this);
-    }
 
     @Override
     public boolean equals(Object o) {
